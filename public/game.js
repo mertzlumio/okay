@@ -47,7 +47,9 @@ gameScene.create = function () {
     this.ball.setScale(1 / 15);
     this.ball.setCircle(17);
     this.ball.setBounce(0.8);
-    this.ball.setVelocity(100, 30);
+    let randomVelocityX = Math.random() * 60 - 30; 
+    let randomVelocityY = Math.random() * 60 - 30; 
+    this.ball.setVelocity(randomVelocityX, randomVelocityY);
     this.ball.setFrictionAir(0);
     this.ball.setMass(0.001);
 
@@ -72,24 +74,23 @@ gameScene.create = function () {
 
 gameScene.update = function () {
 
-    const maxvelocity = 40;
     let currrentvelocity = this.ball.getVelocity();
     let velocityx = currrentvelocity.x;
     let velocityy = currrentvelocity.y;
-    if(velocityx>maxvelocity)
+    if(velocityx>30)
     {
-        this.ball.setVelocity(40, velocityy);
-        if(velocityy>maxvelocity)
+        this.ball.setVelocity(30, velocityy);
+        if(velocityy>30)
             {
-                this.ball.setVekocity(40,40);
+                this.ball.setVekocity(30,30);
             }   
     }
 
     else
     {
-        if(velocityy>maxvelocity)
+        if(velocityy>30)
         {
-        this.ball.setVelocity(velocityx, 40);
+        this.ball.setVelocity(velocityx, 30);
         }
     }
      
@@ -114,10 +115,10 @@ gameScene.update = function () {
 
         this.input.on('pointerdown', function (pointer) {
             if (pointer.leftButtonDown()) {
-                this.bat2.setAngularVelocity(0.8);
+                this.bat2.setAngularVelocity(0.7);
             }
             if (pointer.rightButtonDown()) {
-                this.bat2.setAngularVelocity(-0.8);
+                this.bat2.setAngle(90);
             }
         }, this);
 
@@ -149,11 +150,11 @@ gameScene.update = function () {
 
         this.input.on('pointerdown', function (pointer) {
             if (pointer.leftButtonDown()) {
-                this.bat1.setAngularVelocity(0.8);
+                this.bat1.setAngularVelocity(-0.7);
             }
-            if (pointer.rightButtonDown()) {
-                this.bat1.setAngularVelocity(-0.8);
-            }
+            if (pointer.rightButtonDown()) {               
+                this.bat1.setAngle(90);         
+             }
         },this);
         let bat1data = {x: this.bat1.x, y: this.bat1.y,
             angularVelocity:this.bat1.getAngularVelocity(),

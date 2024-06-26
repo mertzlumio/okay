@@ -8,6 +8,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 let playerCount = 0;
+let gamestart = 0;
 
 app.use(express.static(join(__dirname, 'public')));
 
@@ -23,7 +24,7 @@ io.on('connection', (socket) => {
     {    
         console.log('Player '+playerCount/2+' Connected');
     }
-    
+
     socket.emit('player id',playerCount);
 
     socket.on('update ball1', (bat1data) => {
@@ -38,6 +39,11 @@ io.on('connection', (socket) => {
 
     socket.on('chat message', (msg, playerId) =>{
         io.emit('chat message', msg, playerId);
+        if(gamestart<2){
+            if(msg === 'ready'){
+                gamestart+=1;
+            }
+        }   
     });
 
     socket.on('disconnect', () => {
