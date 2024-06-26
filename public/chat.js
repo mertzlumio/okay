@@ -1,11 +1,10 @@
-/*if (!window.socket) {
+if (!window.socket) {
   window.socket = io();
 }
-
-socket.on('player id', (id) => {
-    playerId = (id+1)/2;
-    console.log('Assigned player ID in Chat :', playerId);
-});*/
+window.socket.on('player id', (id) => {
+    playerId = (id) / 2;
+    console.log('Assigned player ID in Chat:', playerId);
+  });
 
 
 const form = document.getElementById('form');
@@ -20,11 +19,10 @@ form.addEventListener('submit', (e) => {
     }
 });
 
-socket.on('chat message', (data) => {
-    const { playerID, msg } = data;
-    console.log(playerID);
+socket.on('chat message', (msg, playerId) => {
+    console.log(playerId);
     const item = document.createElement('li');
-    item.textContent = `Player ${playerID}: ${msg}`;
+    item.textContent = `Player ${playerId}: ${msg}`;
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
 });

@@ -18,7 +18,12 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
    
     playerCount += 1;
-    console.log('Player '+playerCount+' Connected');
+
+    if(playerCount%2==0)
+    {    
+        console.log('Player '+playerCount/2+' Connected');
+    }
+    
     socket.emit('player id',playerCount);
 
     socket.on('update ball1', (bat1data) => {
@@ -29,6 +34,10 @@ io.on('connection', (socket) => {
     socket.on('update ball2', (bat2data) => {
        //console.log(bat2data); 
         io.emit('ball2', (bat2data));
+    });
+
+    socket.on('chat message', (msg, playerId) =>{
+        io.emit('chat message', msg, playerId);
     });
 
     socket.on('disconnect', () => {

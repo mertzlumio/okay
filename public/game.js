@@ -2,7 +2,7 @@ let playerId;
 const socket = io();
 
 socket.on('player id', (id) => {
-    playerId = id;
+    playerId = (id+1)/2;
     console.log('Assigned player ID:', playerId);
 });
 
